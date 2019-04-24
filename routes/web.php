@@ -109,4 +109,30 @@ Route::get('/', function () {
 // Route::get('hello', 'HelloController');
 
 // requestとresponse /helloにアクセスするとRequest／Responseのプロパティが表示される
+// Route::get('hello', 'HelloController@index');
+
+
+// ルートの設定でテンプレートを表示
+
+// Route::getでviewした場合
+// Route::get('hello', function () {
+//     return view('hello.index');
+// });
+
+// 結果は同じ
+
+// 呼び出されたアクションメソッド内でviewした場合
+// Route::get('hello', 'HelloController@index');
+
+
+// ルートパラメータをテンプレートに渡す
+
+// Route::get('hello/{id?}', 'HelloController@index');
+
+// クエリー文字列を渡す
+// Route::get('hello', 'HelloController@index');
+
+
+// フォーム
 Route::get('hello', 'HelloController@index');
+Route::post('hello', 'HelloController@post');

@@ -127,34 +127,98 @@ class HelloController extends Controller
 //     }
 
 
-    public function index(Request $request, Response $response)
+// リクエストとレスポンス
+//     public function index(Request $request, Response $response)
+//     {
+//
+//         $html = <<<EOF
+// <html>
+// <head>
+// <tltle>Hello/Index</tltle>
+// <style>
+// body {font-size: 16pt; color: #999;}
+// h1 {font-size: 120pt; text-align: right; color: #fafafa;
+// margin:  -50px 0 -12px 0;}
+// </style>
+// </head>
+// <body>
+//     <h1>Hello</h1>
+//     <h3>Request</h3>
+//     <pre>{$request}</pre>
+//     <h3>Response</h3>
+//     <pre>{$response}</pre>
+// </body>
+// </html>
+// EOF;
+//
+//         $response->setContent($html);
+//         return $response;
+//     }
+
+
+// コントローラでviewする場合
+//     public function index()
+//     {
+//         return view('hello.index');
+//     }
+
+// 値をテンプレートに渡す
+//     public function index()
+//     {
+//         $data = ['msg' => 'これはコントローラから渡されたメッセージです。'];
+//         return view('hello.index', $data);
+//     }
+
+
+// ルートパラメータをテンプレートに渡す
+//     public function index($id='zero')
+//     {
+//         $data = [
+//             'msg' => 'これはコントローラから渡されたメッセージです。',
+//             'id' => $id
+//         ];
+//         return view('hello.index', $data);
+//     }
+
+
+// クエリー文字列
+//     public function index(Request $request)
+//     {
+//         $data = [
+//             'msg' => 'これはコントローラから渡されたメッセージです。',
+//             'id' => $request->id
+//         ];
+//         return view('hello.index', $data);
+//     }
+
+
+// Bladeを使う
+//     public function index()
+//     {
+//         $data = [
+//             'msg' => 'これはBladeを利用したサンプルです。'
+//         ];
+//         return view('hello.index', $data);
+//     }
+
+
+    public function index()
     {
 
-        $html = <<<EOF
-<html>
-<head>
-<tltle>Hello/Index</tltle>
-<style>
-body {font-size: 16pt; color: #999;}
-h1 {font-size: 120pt; text-align: right; color: #fafafa;
-margin:  -50px 0 -12px 0;}
-</style>
-</head>
-<body>
-    <h1>Hello</h1>
-    <h3>Request</h3>
-    <pre>{$request}</pre>
-    <h3>Response</h3>
-    <pre>{$response}</pre>
-</body>
-</html>
-EOF;
-
-        $response->setContent($html);
-        return $response;
-
-
+        $data = [
+            'msg' => 'お名前を入力してください。',
+        ];
+        return view('hello.index', $data);
     }
 
+
+    public function post(Request $request)
+    {
+        $msg = $request->msg;
+        $data = [
+            'msg' => 'こんにちわ' . $msg . 'さん',
+        ];
+        return view('hello.index', $data);
+    }
 
 }
