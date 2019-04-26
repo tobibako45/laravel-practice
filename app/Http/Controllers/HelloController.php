@@ -201,24 +201,68 @@ class HelloController extends Controller
 //         return view('hello.index', $data);
 //     }
 
+// フォーム
+//     public function index()
+//     {
+//
+//         $data = [
+//             'msg' => 'お名前を入力してください。',
+//         ];
+//         return view('hello.index', $data);
+//     }
+//
+//     public function post(Request $request)
+//     {
+//         $msg = $request->msg;
+//         $data = [
+//             'msg' => 'こんにちわ' . $msg . 'さん',
+//         ];
+//         return view('hello.index', $data);
+//     }
+//
 
+
+    // if
+    // public function index()
+    // {
+    //     return view('hello.index', ['msg' => '']);
+    // }
+    //
+    // public function post(Request $request)
+    // {
+    //     return view('hello.index', ['msg' => $request->msg]);
+    // }
+
+    // isset
+    // public function index()
+    // {
+    //     // return view('hello.index', ['msg' => '']);
+    //     // テンプレート側で@issetするから、値をわたさなくてよい
+    //     return view('hello.index');
+    // }
+    //
+    // public function post(Request $request)
+    // {
+    //     return view('hello.index', ['msg' => $request->msg]);
+    // }
+
+
+    // @foreach
+    // public function index()
+    // {
+    //     $data = ['one', 'two', 'three', 'four', 'five'];
+    //     return view('hello.index', ['data' => $data]);
+    // }
+
+
+    // @each
     public function index()
     {
-
         $data = [
-            'msg' => 'お名前を入力してください。',
+            ['name' => '山田たろう', 'mail' => 'taro@yamada'],
+            ['name' => '田中はなこ', 'mail' => 'hanako@flower'],
+            ['name' => '鈴木さちこ', 'mail' => 'sachiko@happy'],
         ];
-        return view('hello.index', $data);
+        return view('hello.index', ['data'=>$data]);
     }
-
-
-    public function post(Request $request)
-    {
-        $msg = $request->msg;
-        $data = [
-            'msg' => 'こんにちわ' . $msg . 'さん',
-        ];
-        return view('hello.index', $data);
-    }
-
 }
