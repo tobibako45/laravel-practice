@@ -18,17 +18,31 @@ class HelloServiceProvider extends ServiceProvider
     {
         // /helloのindexビューに「view_message」という値を設定する処理を作成している。
         // View::composer(ビューの指定, 関数またはクラス);
+        // View::composer(
+        //     // 第１引数に /helloのindexビューを指定
+        //     'hello.index',
+        //     // 第２引数に、クロージャを指定
+        //     // $viewは、Illuminate\Support\Facadesの名前空間にあるViewクラスのインスタンス。これがビューを管理するオブジェクトになる。
+        //     function ($view) {
+        //         // withは、ビューに変数などを追加するためもの。
+        //         // $view->with(変数名, 値);
+        //     $view->with('view_message', 'ビューコンポーザからのmessage!');
+        // }
+        // );
+
+        // View::composer(
+        //     'hello.index', function ($view) {
+        //     $view->with('view_message', 'ビューコンポーザからのmessage!');
+        // }
+        // );
+
+
+        // ビューコンポーザクラスを利用する場合は、ViewComposerメソッドの第２引数に、呼び出しクラス名をテキスト値で指定する。
         View::composer(
-            // 第１引数に /helloのindexビューを指定
-            'hello.index',
-            // 第２引数に、クロージャを指定
-            // $viewは、Illuminate\Support\Facadesの名前空間にあるViewクラスのインスタンス。これがビューを管理するオブジェクトになる。
-            function ($view) {
-                // withは、ビューに変数などを追加するためもの。
-                // $view->with(変数名, 値);
-            $view->with('view_message', 'composer message!');
-        }
+            'hello.index', 'App\Http\Composers\HelloComposer'
         );
+
+
     }
 
     /**

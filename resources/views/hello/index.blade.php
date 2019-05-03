@@ -13,10 +13,13 @@
 
 @section('content')
     <p>ここが本文コンテンツ</p>
-    <p>必要なだけ記述できます</p>
+
+    {{-- ビューコンポーザ--}}
+    <p>Controllerからのvalue<br>'message' = {{$message}}</p>
+    <p>ViewComposerからのvalue<br>'view_message' = {{$view_message}}</p>
 
 
-    @each('components.item', $data, 'item')
+    {{--    @each('components.item', $data, 'item')--}}
 
 
     {{--    コンポーネント--}}
@@ -31,24 +34,15 @@
     {{--    @endcomponent--}}
 
     {{--サブビュー--}}
-{{--    @include('components.message', ['msg_title'=>'OK', 'msg_content'=>'サブビューです。'])--}}
-
-
+    {{--    @include('components.message', ['msg_title'=>'OK', 'msg_content'=>'サブビューです。'])--}}
 
 
 @endsection
-
-
 
 
 @section('footer')
     copyright 2019 ore.
 @endsection
-
-
-
-
-
 
 
 
