@@ -20,8 +20,11 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
 
+
         // HelloMiddleware登録
-        \App\Http\Middleware\HelloMiddleware::class,
+
+        // $middlewareGroupsに登録するため削除。
+        // \App\Http\Middleware\HelloMiddleware::class,
     ];
 
     /**
@@ -43,6 +46,10 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
+        ],
+        //
+        'helo' => [
+            \App\Http\Middleware\HelloMiddleware::class,
         ],
     ];
 

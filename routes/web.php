@@ -145,4 +145,8 @@ Route::get('/', function () {
 
 // グローバルミドルウェアの場合
 // グローバルミドルウェアでは、呼び出しの記述は不要。
-Route::get('hello', 'HelloController@index');
+// Route::get('hello', 'HelloController@index');
+
+// ミドルウェアのグループ化
+// heloグループに登録してあるすべてのミドルウェアが実行される。ｔ
+Route::get('hello', 'HelloControler@index')->middleware('helo');
