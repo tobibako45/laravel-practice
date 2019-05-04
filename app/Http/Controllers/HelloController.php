@@ -281,6 +281,7 @@ class HelloController extends Controller
     // }
 
 
+    // ミドルウェアの利用。後処理。
     public function index(Request $request)
     {
         return view('hello.index');

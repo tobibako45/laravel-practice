@@ -140,6 +140,9 @@ Route::get('/', function () {
 // Route::post('hello', 'HelloController@post');
 
 
-// ミドルウェアに実行
-Route::get('hello', 'HelloController@index')->middleware(HelloMiddleware::class);
+// ミドルウェアを実行。個別の場合
+// Route::get('hello', 'HelloController@index')->middleware(HelloMiddleware::class);
 
+// グローバルミドルウェアの場合
+// グローバルミドルウェアでは、呼び出しの記述は不要。
+Route::get('hello', 'HelloController@index');
