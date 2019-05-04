@@ -148,5 +148,5 @@ Route::get('/', function () {
 // Route::get('hello', 'HelloController@index');
 
 // ミドルウェアのグループ化
-// heloグループに登録してあるすべてのミドルウェアが実行される。ｔ
+// heloグループに登録してあるすべてのミドルウェアが実行される。
 Route::get('hello', 'HelloControler@index')->middleware('helo');
