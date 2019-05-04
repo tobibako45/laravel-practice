@@ -266,8 +266,34 @@ class HelloController extends Controller
     //     return view('hello.index', ['data'=>$data]);
     // }
 
-    public function index()
+
+    // public function index()
+    // {
+    //     return view('hello.index', ['message' => 'Heeeeeeeeeeeeello!']);
+    // }
+
+
+    // ミドルウェアの利用。前処理
+    // HelloMiddleware.phpで、$request->dataに配列を代入して、ここで取り出してる。
+    // public function index(Request $request)
+    // {
+    //     return view('hello.index', ['data'=>$request->data]);
+    // }
+
+
+    public function index(Request $request)
     {
-        return view('hello.index', ['message'=>'Heeeeeeeeeeeeello!']);
+        return view('hello.index');
     }
+
+
+
+
+
+
+
+
+
+
+
 }

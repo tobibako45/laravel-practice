@@ -12,6 +12,8 @@
 */
 
 use Illuminate\Support\Facades\Route;
+// ミドルウェアの実行のため追記
+use App\Http\Middleware\HelloMiddleware;
 
 Route::get('/', function () {
     return view('welcome');
@@ -134,5 +136,10 @@ Route::get('/', function () {
 
 
 // フォーム
-Route::get('hello', 'HelloController@index');
-Route::post('hello', 'HelloController@post');
+// Route::get('hello', 'HelloController@index');
+// Route::post('hello', 'HelloController@post');
+
+
+// ミドルウェアに実行
+Route::get('hello', 'HelloController@index')->middleware(HelloMiddleware::class);
+
