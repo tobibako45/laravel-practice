@@ -12,17 +12,106 @@
 @endsection
 
 @section('content')
-    <p>ここが本文コンテンツ</p>
+    {{--    <p>ここが本文コンテンツ</p>--}}
+
+    <p>{{$msg}}</p>
+
+    {{--    エラーを個別で表示--}}
+    <table>
+        <form action="/hello" method="post">
+            {{csrf_field()}}
+
+            @if ($errors->has('name'))
+                <tr>
+                    <th>ERROR</th>
+                    <td>{{$errors->first('name')}}</td>
+                </tr>
+            @endif
+            <tr>
+                <th>name:</th>
+                <td><input type="text" name="name" value="{{old('name')}}"></td>
+            </tr>
+
+            @if($errors->has('mail'))
+                <tr>
+                    <th>ERROR</th>
+                    <td>{{$errors->first('mail')}}</td>
+                </tr>
+            @endif
+            <tr>
+                <th>mail:</th>
+                <td><input type="text" name="mail" value="{{old('mail')}}"></td>
+            </tr>
+
+            @if($errors->has('age'))
+                <tr>
+                    <th>ERROR</th>
+                    <td>{{$errors->first('age')}}</td>
+                </tr>
+            @endif
+            <tr>
+                <th>age:</th>
+                <td><input type="text" name="age" value="{{old('age')}}"></td>
+            </tr>
+
+            <tr>
+                <th></th>
+                <td><input type="submit" value="send"></td>
+            </tr>
+
+        </form>
+    </table>
+
+
+
+
+
+    {{--    エラーをまとめて表示--}}
+    {{--    @if (count($errors) > 0)--}}
+    {{--        <div>--}}
+    {{--            <ul>--}}
+    {{--                @foreach($errors->all() as $error)--}}
+    {{--                    <li>{{$error}}</li>--}}
+    {{--                @endforeach--}}
+    {{--            </ul>--}}
+    {{--        </div>--}}
+    {{--    @endif--}}
+
+    {{--    <table>--}}
+    {{--        <form action="/hello" method="post">--}}
+    {{--            {{csrf_field()}}--}}
+    {{--            <tr>--}}
+    {{--                <th>name:</th>--}}
+    {{--                <td><input type="text" name="name" value="{{old('name')}}"></td>--}}
+    {{--            </tr>--}}
+    {{--            <tr>--}}
+    {{--                <th>mail:</th>--}}
+    {{--                <td><input type="text" name="mail" value="{{old('mail')}}"></td>--}}
+    {{--            </tr>--}}
+    {{--            <tr>--}}
+    {{--                <th>age:</th>--}}
+    {{--                <td><input type="text" name="age" value="{{old('age')}}"></td>--}}
+    {{--            </tr>--}}
+    {{--            <tr>--}}
+    {{--                <th></th>--}}
+    {{--                <td><input type="submit" value="send"></td>--}}
+
+    {{--            </tr>--}}
+    {{--        </form>--}}
+    {{--    </table>--}}
+
+
+
 
     {{--    ミドルウェア 後処理--}}
-    <p>これは、
-        <middleware>google.com</middleware>
-        へのリンクです
-    </p>
-    <p>これは、
-        <middleware>yahoo.co.jp</middleware>
-        へのリンクです
-    </p>
+    {{--    <p>これは、--}}
+    {{--        <middleware>google.com</middleware>--}}
+    {{--        へのリンクです--}}
+    {{--    </p>--}}
+    {{--    <p>これは、--}}
+    {{--        <middleware>yahoo.co.jp</middleware>--}}
+    {{--        へのリンクです--}}
+    {{--    </p>--}}
 
 
     {{-- ミドルウェアの利用 前処理--}}

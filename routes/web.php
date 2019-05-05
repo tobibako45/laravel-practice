@@ -149,4 +149,10 @@ Route::get('/', function () {
 
 // ミドルウェアのグループ化
 // heloグループに登録してあるすべてのミドルウェアが実行される。
-Route::get('hello', 'HelloControler@index')->middleware('helo');
+// Route::get('hello', 'HelloControler@index')->middleware('helo');
+
+
+
+// バリデーションの利用
+Route::get('hello', 'HelloController@index');
+Route::post('hello', 'HelloController@post');
