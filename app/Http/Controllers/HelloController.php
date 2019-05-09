@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+// フォームリクエストの追加
+use App\Http\Requests\HelloRequest;
+
+// バリデータに使う
+use Validator;
+
 
 // 複数アクションのやつに使用
 // global $head, $style, $body, $end;
@@ -289,24 +295,165 @@ class HelloController extends Controller
 
 
     // validateの利用 GET
+    // public function index(Request $request)
+    // {
+    //     return view('hello.index', ['msg' => 'フォームを入力']);
+    // }
+    //
+    // // POST
+    // // public function post(Request $request)
+    // public function post(HelloRequest $request)
+    // {
+    //     // $validateメソッドの書き方
+    //     // $validate_rule = [
+    //     //     'name' => 'required',
+    //     //     'mail' => 'email',
+    //     //     'age' => 'numeric|between:0,150',
+    //     // ];
+    //     // $this->validate($request, $validate_rule);
+    //
+    //
+    //     // フォームリクエストにバリデーションを移動した。
+    //     // その際に、useを追加。
+    //     // use App\Http\Requests\HelloRequest;
+    //
+    //     return view('hello.index', ['msg' => '正しく入力されました！',]);
+    // }
+
+
+    // バリデータの作成
+    // フォーム以外の値をチェック
+    // GETのクエリー文字列をバリデータでチェック
+    // public function index(Request $request)
+    // {
+    //     $validator = Validator::make($request->query(), [
+    //         'id' => 'required',
+    //         'pass' => 'required',
+    //     ]);
+    //     if ($validator->fails()) {
+    //         $msg = 'クエリーに問題があります。';
+    //     } else {
+    //         $msg = 'ID/PASSを受け付けました。フォームを入力して下さい。';
+    //     }
+    //
+    //     return view('hello.index', ['msg' => $msg]);
+    // }
+    //
+    // // POST
+    // // use Validator;を追記
+    // public function post(Request $request)
+    // {
+    //     // makeメソッドで、Validatorインスタンスを作成。
+    //     // $request->all() 全入力を「配列」として受け取る
+    //     $validator = Validator::make($request->all(), [
+    //         'name' => 'required',
+    //         'mail' => 'email',
+    //         'age' => 'numeric|between:0,150',
+    //     ]);
+    //
+    //     if ($validator->fails()) {
+    //         return redirect('/hello')
+    //             ->withErrors($validator)
+    //             ->withInput();
+    //     }
+    //
+    //     return view('hello.index', ['msg' => '正しく入力されました！',]);
+    // }
+
+
+    // バリデータでエラーメッセージをカスタマイズ
+    // public function index()
+    // {
+    //     return view('hello.index', ['msg' => 'フォームを入力']);
+    // }
+    //
+    //
+    // public function post(Request $request)
+    // {
+    //     $rules = [
+    //         'name' => 'required',
+    //         'mail' => 'email',
+    //         'age' => 'numeric|between:0,150',
+    //     ];
+    //
+    //     $messages = [
+    //         'name.required' => '名前は必ず入力して下さい。',
+    //         'mail.email' => 'メールアドレスが必要です。',
+    //         'age.numeric' => '年齢は整数で記入して下さい。',
+    //         'age.between' => '年齢は0〜150の間で入力して下さい。',
+    //     ];
+    //
+    //     // 第1引数 $request->all() 全入力を「配列」として受け取る
+    //     // 第2引数 検証ルールの情報が配列にまとめたもの
+    //     // 第3引数 エラーメッセージの配列
+    //     $validator = Validator::make($request->all(), $rules, $messages);
+    //
+    //     if ($validator->fails()) {
+    //         return redirect('/hello')
+    //             ->withErrors($validator)
+    //             ->withInput();
+    //     }
+    //
+    //     return view('hello.index', ['msg' => '正しく入力されました']);
+    // }
+
+
+    // 条件に応じてルールを追加する
+    // public function index(Request $request)
+    // {
+    //     return view('hello.index', ['msg' => 'フォームを入力']);
+    // }
+    //
+    // public function post(Request $request)
+    // {
+    //     $rules = [
+    //         'name' => 'required',
+    //         'mail' => 'email',
+    //         'age' => 'numeric',
+    //     ];
+    //
+    //     $messages = [
+    //         'name.required' => '名前は必ず入力して下さい。',
+    //         'mail.email' => 'メールアドレスが必要です。',
+    //         'age.numeric' => '年齢は整数で記入して下さい。',
+    //         'age.min' => '年齢はゼロ歳以上で入力して下さい。',
+    //         'age.max' => '年齢は200歳以下で入力して下さい。',
+    //     ];
+    //
+    //     // Validatorのインスタンスを作成
+    //     $validator = Validator::make($request->all(), $rules, $messages);
+    //
+    //     // sometimesメソッドで独自ルール設定 min:0
+    //     $validator->sometimes('age', 'min:0', function ($input) {
+    //         return !is_int($input->age);
+    //     });
+    //
+    //     // sometimesメソッドで独自ルール設定 max:200
+    //     $validator->sometimes('age', 'max:200', function ($input) {
+    //         return !is_int($input->age);
+    //     });
+    //
+    //     // fails()メソッドでバリデーションチェック
+    //     if ($validator->fails()) {
+    //         return redirect('/hello')
+    //             ->withErrors($validator)
+    //             ->withInput();
+    //     }
+    //
+    //     return view('hello.index', ['msg' => '正しく入力されました！']);
+    // }
+
+
+    // オリジナル・バリデータ
     public function index(Request $request)
     {
-        return view('hello.index', ['msg' => 'フォームを入力']);
+        return view('hello.index', ['msg' => '入力して下さい']);
     }
 
-    // POST
-    public function post(Request $request)
+    // フォームリクエストにバリデーション HelloRequest
+    public function post(HelloRequest $request)
     {
-        $validate_rule = [
-            'name' => 'required',
-            'mail' => 'email',
-            'age' => 'numeric|between:0,150',
-        ];
-        $this->validate($request, $validate_rule);
-        return view('hello.index', ['msg' => '正しく入力されました！',]);
+        return view('hello.index', ['msg' => '正しく入力されました']);
     }
-
-
-
 
 }

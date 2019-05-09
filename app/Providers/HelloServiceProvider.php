@@ -2,8 +2,15 @@
 
 namespace App\Providers;
 
+use function foo\func;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+
+// Valkidatorを追加
+use Illuminate\Validation\Validator;
+// HelloValidatorを追加する
+use App\Http\Validators\HelloValidator;
+
 
 class HelloServiceProvider extends ServiceProvider
 {
@@ -16,6 +23,18 @@ class HelloServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        // オリジナルバリデータ HelloValidatorを組み込む
+
+        // バリデータは、$this→app[‘validator’]というところに保管されている
+        $validator = $this->app['validator'];
+
+        // resolverというメソッドで、
+        //リゾルブ(バリデーションの処理を行う)の処理を設定できる。
+        $validator->resolver(function ($translator, $data, $rules, $messages) {
+            return new HelloValidator($translator, $data, $rules, $messages);
+        });
+
+
         // /helloのindexビューに「view_message」という値を設定する処理を作成している。
         // View::composer(ビューの指定, 関数またはクラス);
         // View::composer(
@@ -29,6 +48,7 @@ class HelloServiceProvider extends ServiceProvider
         //     $view->with('view_message', 'ビューコンポーザからのmessage!');
         // }
         // );
+
 
         // View::composer(
         //     'hello.index', function ($view) {
