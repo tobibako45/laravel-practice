@@ -7,7 +7,11 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 // Valkidatorを追加
-use Illuminate\Validation\Validator;
+// use Illuminate\Validation\Validator;
+// エラーが出たため変更
+// "Call to undefined method Illuminate\Validation\Validator::extend()"
+use Illuminate\Support\Facades\Validator;
+
 // HelloValidatorを追加する
 use App\Http\Validators\HelloValidator;
 
@@ -23,16 +27,21 @@ class HelloServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        // オリジナルバリデータ HelloValidatorを組み込む
+        /** Validator::extendを使う */
+        Validator::extend('hello', function ($attribute, $value, $parameters, $validator) {
+            return $value % 2 == 0;
+        });
 
+
+        /** オリジナルバリデータ HelloValidatorを組み込む */
         // バリデータは、$this→app[‘validator’]というところに保管されている
-        $validator = $this->app['validator'];
+        // $validator = $this->app['validator'];
 
         // resolverというメソッドで、
         //リゾルブ(バリデーションの処理を行う)の処理を設定できる。
-        $validator->resolver(function ($translator, $data, $rules, $messages) {
-            return new HelloValidator($translator, $data, $rules, $messages);
-        });
+        // $validator->resolver(function ($translator, $data, $rules, $messages) {
+        //     return new HelloValidator($translator, $data, $rules, $messages);
+        // });
 
 
         // /helloのindexビューに「view_message」という値を設定する処理を作成している。

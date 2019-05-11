@@ -36,7 +36,7 @@ class HelloRequest extends FormRequest
             'age' => 'numeric|hello' // ここに'hello'のルールを追加
         ];
 
-        // 普通のやつ
+        /** 普通のやつ */
         // return [
         //     'name' => 'required',
         //     'mail' => 'email',
@@ -60,7 +60,7 @@ class HelloRequest extends FormRequest
         ];
 
 
-        // 普通のやつ
+        /** 普通のやつ */
         // return [
         //     'name.required' => '名前は必ず入力してください。',
         //     'mail.email' => 'メールアドレスが必要です。',

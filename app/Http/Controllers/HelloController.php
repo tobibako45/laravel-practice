@@ -36,7 +36,7 @@ use Validator;
 class HelloController extends Controller
 {
 
-// 普通
+    /** 普通 */
 //     public function index()
 //     {
 //         return <<<EOF
@@ -59,7 +59,7 @@ class HelloController extends Controller
 //     }
 
 
-    // 任意パラメーター
+    /** 任意パラメーター */
 //     public function index($id = 'nomane', $pass = 'unknown')
 //     {
 //
@@ -87,7 +87,7 @@ class HelloController extends Controller
 //     }
 
 
-// 複数アクション
+    /** 複数アクション */
     // public function index()
     // {
     //     global $head, $style, $body, $end;
@@ -111,7 +111,7 @@ class HelloController extends Controller
     // }
 
 
-// シングルアクション
+    /** シングルアクション */
 //     public function __invoke()
 //     {
 //         return <<<EOF
@@ -133,7 +133,7 @@ class HelloController extends Controller
 //     }
 
 
-// リクエストとレスポンス
+    /** リクエストとレスポンス */
 //     public function index(Request $request, Response $response)
 //     {
 //
@@ -162,13 +162,13 @@ class HelloController extends Controller
 //     }
 
 
-// コントローラでviewする場合
+    /** コントローラでviewする場合 */
 //     public function index()
 //     {
 //         return view('hello.index');
 //     }
 
-// 値をテンプレートに渡す
+    /** 値をテンプレートに渡す */
 //     public function index()
 //     {
 //         $data = ['msg' => 'これはコントローラから渡されたメッセージです。'];
@@ -176,59 +176,58 @@ class HelloController extends Controller
 //     }
 
 
-// ルートパラメータをテンプレートに渡す
-//     public function index($id='zero')
-//     {
-//         $data = [
-//             'msg' => 'これはコントローラから渡されたメッセージです。',
-//             'id' => $id
-//         ];
-//         return view('hello.index', $data);
-//     }
+    /** ルートパラメータをテンプレートに渡す */
+    // public function index($id = 'zero')
+    // {
+    //     $data = [
+    //         'msg' => 'これはコントローラから渡されたメッセージです。',
+    //         'id' => $id
+    //     ];
+    //     return view('hello.index', $data);
+    // }
 
 
-// クエリー文字列
-//     public function index(Request $request)
-//     {
-//         $data = [
-//             'msg' => 'これはコントローラから渡されたメッセージです。',
-//             'id' => $request->id
-//         ];
-//         return view('hello.index', $data);
-//     }
+    /**  クエリー文字列 */
+    // public function index(Request $request)
+    // {
+    //     $data = [
+    //         'msg' => 'これはコントローラから渡されたメッセージです。',
+    //         'id' => $request->id
+    //     ];
+    //     return view('hello.index', $data);
+    // }
 
 
-// Bladeを使う
-//     public function index()
-//     {
-//         $data = [
-//             'msg' => 'これはBladeを利用したサンプルです。'
-//         ];
-//         return view('hello.index', $data);
-//     }
+    /** Bladeを使う */
+    // public function index()
+    // {
+    //     $data = [
+    //         'msg' => 'これはBladeを利用したサンプルです。'
+    //     ];
+    //     return view('hello.index', $data);
+    // }
 
-// フォーム
-//     public function index()
-//     {
-//
-//         $data = [
-//             'msg' => 'お名前を入力してください。',
-//         ];
-//         return view('hello.index', $data);
-//     }
-//
-//     public function post(Request $request)
-//     {
-//         $msg = $request->msg;
-//         $data = [
-//             'msg' => 'こんにちわ' . $msg . 'さん',
-//         ];
-//         return view('hello.index', $data);
-//     }
-//
+    /** フォーム */
+    // public function index()
+    // {
+    //
+    //     $data = [
+    //         'msg' => 'お名前を入力してください。',
+    //     ];
+    //     return view('hello.index', $data);
+    // }
+    //
+    // public function post(Request $request)
+    // {
+    //     $msg = $request->msg;
+    //     $data = [
+    //         'msg' => 'こんにちわ' . $msg . 'さん',
+    //     ];
+    //     return view('hello.index', $data);
+    // }
 
 
-    // if
+    /** if */
     // public function index()
     // {
     //     return view('hello.index', ['msg' => '']);
@@ -239,7 +238,7 @@ class HelloController extends Controller
     //     return view('hello.index', ['msg' => $request->msg]);
     // }
 
-    // isset
+    /** isset */
     // public function index()
     // {
     //     // return view('hello.index', ['msg' => '']);
@@ -253,7 +252,7 @@ class HelloController extends Controller
     // }
 
 
-    // @foreach
+    /** @foreach */
     // public function index()
     // {
     //     $data = ['one', 'two', 'three', 'four', 'five'];
@@ -261,7 +260,7 @@ class HelloController extends Controller
     // }
 
 
-    // @each
+    /** @each */
     // public function index()
     // {
     //     $data = [
@@ -279,7 +278,7 @@ class HelloController extends Controller
     // }
 
 
-    // ミドルウェアの利用。前処理
+    /** ミドルウェアの利用。前処理 */
     // HelloMiddleware.phpで、$request->dataに配列を代入して、ここで取り出してる。
     // public function index(Request $request)
     // {
@@ -287,14 +286,14 @@ class HelloController extends Controller
     // }
 
 
-    // ミドルウェアの利用。後処理。
+    /** ミドルウェアの利用。後処理。*/
     // public function index(Request $request)
     // {
     //     return view('hello.index');
     // }
 
 
-    // validateの利用 GET
+    /** validateの利用 GET */
     // public function index(Request $request)
     // {
     //     return view('hello.index', ['msg' => 'フォームを入力']);
@@ -321,7 +320,7 @@ class HelloController extends Controller
     // }
 
 
-    // バリデータの作成
+    /**  バリデータの作成 */
     // フォーム以外の値をチェック
     // GETのクエリー文字列をバリデータでチェック
     // public function index(Request $request)
@@ -361,7 +360,7 @@ class HelloController extends Controller
     // }
 
 
-    // バリデータでエラーメッセージをカスタマイズ
+    /** バリデータでエラーメッセージをカスタマイズ */
     // public function index()
     // {
     //     return view('hello.index', ['msg' => 'フォームを入力']);
@@ -398,7 +397,7 @@ class HelloController extends Controller
     // }
 
 
-    // 条件に応じてルールを追加する
+    /** 条件に応じてルールを追加する */
     // public function index(Request $request)
     // {
     //     return view('hello.index', ['msg' => 'フォームを入力']);
@@ -444,16 +443,60 @@ class HelloController extends Controller
     // }
 
 
-    // オリジナル・バリデータ
+    // /** オリジナル・バリデータ */
+    // public function index(Request $request)
+    // {
+    //     return view('hello.index', ['msg' => '入力して下さい']);
+    // }
+    //
+    // // フォームリクエストにバリデーション HelloRequest
+    // public function post(HelloRequest $request)
+    // {
+    //     return view('hello.index', ['msg' => '正しく入力されました']);
+    // }
+
+
+    /** cookieの利用
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
-        return view('hello.index', ['msg' => '入力して下さい']);
+        if ($request->hasCookie('msg')) {
+            $msg = 'Cookie: ' . $request->cookie('msg');
+        } else {
+            $msg = '※クッキーはありません。';
+        }
+
+        return view('hello.index', ['msg' => $msg]);
     }
 
-    // フォームリクエストにバリデーション HelloRequest
-    public function post(HelloRequest $request)
+    /**
+     * @param Request $request
+     * @return Response
+     */
+    public function post(Request $request)
     {
-        return view('hello.index', ['msg' => '正しく入力されました']);
-    }
+        $validate_rule = [
+            'msg' => 'required',
+        ];
 
+        // msgにバリデーションを設定
+        $this->validate($request, $validate_rule);
+        // $msgに格納
+        $msg = $request->msg;
+
+        // responseインスタンスを作成。
+        // Viewを引数に指定。
+        $response = new Response(view('hello.index', ['msg' => '「' . $msg . '」をクッキーに保存しました。']));
+
+        // responseのcookieメソッドを呼び出して、$msgをクッキーに保存
+        $response->cookie('msg', $msg, 100);
+        // それをreturn
+        return $response;
+
+        // これで作成したレスポンスがクライアントに返され、クッキーが保存される。
+        // クッキーはクライアントの保存されるものだから、
+        // クッキーを設定したレスポンスをクライアントに返さないと保存されない。
+    }
 }
