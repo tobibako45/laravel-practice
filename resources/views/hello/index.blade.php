@@ -16,33 +16,53 @@
 
     <p>{{$msg}}</p>
 
-    {{-- cookieの利用 --}}
-    @if(count($errors) > 0)
-        <p>入力に問題があります。再入力して下さい。</p>
-    @endif
-
+    {{--DBクラスの使用--}}
     <table>
-        <form action="/hello" method="post">
-
-            {{--無効にしたからいらない--}}
-            {{--{{csrf_field()}}--}}
-
-            @if($errors->has('msg'))
-                <tr>
-                    <th>ERROR</th>
-                    <td>{{$errors->first('msg')}}</td>
-                </tr>
-            @endif
+        <tr>
+            <th>Nmae</th>
+            <th>Mail</th>
+            <th>Age</th>
+        </tr>
+        @foreach($items as $item)
             <tr>
-                <th>Message:</th>
-                <td><input type="text" name="msg" value="{{old('msg')}}"></td>
+                <td>{{$item->name}}</td>
+                <td>{{$item->mail}}</td>
+                <td>{{$item->age}}</td>
             </tr>
-            <tr>
-                <th></th>
-                <td><input type="submit" value="send"></td>
-            </tr>
-        </form>
+        @endforeach;
     </table>
+
+
+
+
+
+    {{-- cookieの利用 --}}
+    {{--    @if(count($errors) > 0)--}}
+    {{--        <p>入力に問題があります。再入力して下さい。</p>--}}
+    {{--    @endif--}}
+
+    {{--    <table>--}}
+    {{--        <form action="/hello" method="post">--}}
+
+    {{--            --}}{{--無効にしたからいらない--}}
+    {{--            --}}{{--{{csrf_field()}}--}}
+
+    {{--            @if($errors->has('msg'))--}}
+    {{--                <tr>--}}
+    {{--                    <th>ERROR</th>--}}
+    {{--                    <td>{{$errors->first('msg')}}</td>--}}
+    {{--                </tr>--}}
+    {{--            @endif--}}
+    {{--            <tr>--}}
+    {{--                <th>Message:</th>--}}
+    {{--                <td><input type="text" name="msg" value="{{old('msg')}}"></td>--}}
+    {{--            </tr>--}}
+    {{--            <tr>--}}
+    {{--                <th></th>--}}
+    {{--                <td><input type="submit" value="send"></td>--}}
+    {{--            </tr>--}}
+    {{--        </form>--}}
+    {{--    </table>--}}
 
 
 

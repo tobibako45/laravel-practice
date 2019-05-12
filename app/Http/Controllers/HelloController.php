@@ -11,6 +11,9 @@ use App\Http\Requests\HelloRequest;
 // バリデータに使う
 use Validator;
 
+// DBクラスの利用
+use Illuminate\Support\Facades\DB;
+
 
 // 複数アクションのやつに使用
 // global $head, $style, $body, $end;
@@ -460,43 +463,54 @@ class HelloController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
-    {
-        if ($request->hasCookie('msg')) {
-            $msg = 'Cookie: ' . $request->cookie('msg');
-        } else {
-            $msg = '※クッキーはありません。';
-        }
-
-        return view('hello.index', ['msg' => $msg]);
-    }
-
+    // public function index(Request $request)
+    // {
+    //     if ($request->hasCookie('msg')) {
+    //         $msg = 'Cookie: ' . $request->cookie('msg');
+    //     } else {
+    //         $msg = '※クッキーはありません。';
+    //     }
+    //
+    //     return view('hello.index', ['msg' => $msg]);
+    // }
+    //
     /**
      * @param Request $request
      * @return Response
      */
-    public function post(Request $request)
+    // public function post(Request $request)
+    // {
+    //     $validate_rule = [
+    //         'msg' => 'required',
+    //     ];
+    //
+    //     // msgにバリデーションを設定
+    //     $this->validate($request, $validate_rule);
+    //     // $msgに格納
+    //     $msg = $request->msg;
+    //
+    //     // responseインスタンスを作成。
+    //     // Viewを引数に指定。
+    //     $response = new Response(view('hello.index', ['msg' => '「' . $msg . '」をクッキーに保存しました。']));
+    //
+    //     // responseのcookieメソッドを呼び出して、$msgをクッキーに保存
+    //     $response->cookie('msg', $msg, 100);
+    //     // それをreturn
+    //     return $response;
+    //
+    //     // これで作成したレスポンスがクライアントに返され、クッキーが保存される。
+    //     // クッキーはクライアントの保存されるものだから、
+    //     // クッキーを設定したレスポンスをクライアントに返さないと保存されない。
+    // }
+
+
+
+
+    /** DBクラスの利用 */
+    public function index(Request $request)
     {
-        $validate_rule = [
-            'msg' => 'required',
-        ];
-
-        // msgにバリデーションを設定
-        $this->validate($request, $validate_rule);
-        // $msgに格納
-        $msg = $request->msg;
-
-        // responseインスタンスを作成。
-        // Viewを引数に指定。
-        $response = new Response(view('hello.index', ['msg' => '「' . $msg . '」をクッキーに保存しました。']));
-
-        // responseのcookieメソッドを呼び出して、$msgをクッキーに保存
-        $response->cookie('msg', $msg, 100);
-        // それをreturn
-        return $response;
-
-        // これで作成したレスポンスがクライアントに返され、クッキーが保存される。
-        // クッキーはクライアントの保存されるものだから、
-        // クッキーを設定したレスポンスをクライアントに返さないと保存されない。
+        $items = DB::select('select * from people');
+        return view('hello.index', ['items' => $items]);
     }
+
 }

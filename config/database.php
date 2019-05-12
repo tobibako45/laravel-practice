@@ -13,7 +13,9 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    // 'default' => env('DB_CONNECTION', 'mysql'),
+    // defaultをSQLiteに変更
+    'default' => env('DB_CONNECTION', 'sqlite'),
 
     /*
     |--------------------------------------------------------------------------
@@ -34,8 +36,11 @@ return [
     'connections' => [
 
         'sqlite' => [
+            // ドライバー名
             'driver' => 'sqlite',
+            // 使用するDB名
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
+            // プレフィックス
             'prefix' => '',
         ],
 
