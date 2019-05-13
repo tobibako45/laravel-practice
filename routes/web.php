@@ -159,3 +159,7 @@ Route::post('hello', 'HelloController@post');
 // 新規作成を追加
 Route::get('hello/add', 'HelloController@add');
 Route::post('hello/add', 'HelloController@create');
+
+// 更新
+Route::get('hello/edit', 'HelloController@edit');
+Route::post('hello/edit', 'HelloController@update');
