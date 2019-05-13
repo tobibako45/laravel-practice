@@ -504,13 +504,61 @@ class HelloController extends Controller
     // }
 
 
-
-
     /** DBクラスの利用 */
+
+    /** 普通 */
+    // public function index(Request $request)
+    // {
+    //     $items = DB::select('select * from people');
+    //     return view('hello.index', ['items' => $items]);
+    // }
+
+    /** パラメータ結合の利用
+     * /hello?id=番号 クエリ文字でアクセス
+     */
     public function index(Request $request)
+    {
+        if (isset($request->id)) {
+            $param = ['id' => $request->id];
+            $items = DB::select('select * from people where id = :id', $param);
+        } else {
+            $items = DB::select('select * from people');
+        }
+
+        return view('hello.index', ['items' => $items]);
+    }
+
+    public function post(Request $request)
     {
         $items = DB::select('select * from people');
         return view('hello.index', ['items' => $items]);
     }
+
+
+    /** 新規作成ページ */
+    public function add(Request $request)
+    {
+        return view('hello.add');
+    }
+
+    /** 登録 */
+    public function create(Request $request)
+    {
+        // $paramに、送信フォームの値を保管。
+        $param = [
+            'name' => $request->name,
+            'mail' => $request->mail,
+            'age' => $request->age,
+        ];
+
+        // 配列をパラメータ引数にして、DB::insertを呼び出し実行
+        // :nameとかはプレースホルダ
+        // 第２引数の$paramではめ込む
+        DB::insert('insert into people (name, mail, age) values (:name, :mail, :age)', $param);
+
+        // /helloにリダイレクト
+        return redirect('/hello');
+    }
+
 
 }

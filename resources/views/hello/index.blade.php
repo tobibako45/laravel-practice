@@ -14,7 +14,7 @@
 @section('content')
     {{--    <p>ここが本文コンテンツ</p>--}}
 
-    <p>{{$msg}}</p>
+{{--    <p>{{$msg}}</p>--}}
 
     {{--DBクラスの使用--}}
     <table>
@@ -29,7 +29,7 @@
                 <td>{{$item->mail}}</td>
                 <td>{{$item->age}}</td>
             </tr>
-        @endforeach;
+        @endforeach
     </table>
 
 
