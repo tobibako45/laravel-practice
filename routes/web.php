@@ -163,3 +163,7 @@ Route::post('hello/add', 'HelloController@create');
 // 更新
 Route::get('hello/edit', 'HelloController@edit');
 Route::post('hello/edit', 'HelloController@update');
+
+//削除
+Route::get('hello/del', 'HelloController@del');
+Route::post('hello/del', 'HelloController@remove');
