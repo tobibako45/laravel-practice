@@ -19,7 +19,7 @@
     {{--DBクラスの使用--}}
     <table>
         <tr>
-            <th>Nmae</th>
+            <th>Name</th>
             <th>Mail</th>
             <th>Age</th>
         </tr>

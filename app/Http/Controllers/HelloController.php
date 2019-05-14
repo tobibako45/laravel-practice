@@ -513,94 +513,216 @@ class HelloController extends Controller
     //     return view('hello.index', ['items' => $items]);
     // }
 
+
     /** パラメータ結合の利用
      * /hello?id=番号 クエリ文字でアクセス
      */
+    // public function index(Request $request)
+    // {
+    //     if (isset($request->id)) {
+    //         $param = ['id' => $request->id];
+    //         $items = DB::select('select * from people where id = :id', $param);
+    //     } else {
+    //         $items = DB::select('select * from people');
+    //     }
+    //
+    //     return view('hello.index', ['items' => $items]);
+    // }
+    //
+    // public function post(Request $request)
+    // {
+    //     $items = DB::select('select * from people');
+    //     return view('hello.index', ['items' => $items]);
+    // }
+    //
+    //
+    // /** 新規作成ページ */
+    // public function add(Request $request)
+    // {
+    //     return view('hello.add');
+    // }
+    //
+    // /** 登録 */
+    // public function create(Request $request)
+    // {
+    //     // $paramに、送信フォームの値を保管。
+    //     $param = [
+    //         'name' => $request->name,
+    //         'mail' => $request->mail,
+    //         'age' => $request->age,
+    //     ];
+    //
+    //     // 配列をパラメータ引数にして、DB::insertを呼び出し実行
+    //     // :nameとかはプレースホルダ
+    //     // 第２引数の$paramではめ込む
+    //     DB::insert('insert into people (name, mail, age) values (:name, :mail, :age)', $param);
+    //
+    //     // /helloにリダイレクト
+    //     return redirect('/hello');
+    // }
+    //
+    // /** 更新ページ
+    //  * /hello/edit?id=6
+    //  */
+    // public function edit(Request $request)
+    // {
+    //     $param = ['id' => $request->id];
+    //     $item = DB::select('select * from people where id = :id', $param);
+    //
+    //     return view('hello.edit', ['form' => $item[0]]);
+    // }
+    //
+    // /** 更新 */
+    // public function update(Request $request)
+    // {
+    //     $param = [
+    //         'id' => $request->id,
+    //         'name' => $request->name,
+    //         'mail' => $request->mail,
+    //         'age' => $request->age,
+    //     ];
+    //
+    //     DB::update('update people set name = :name, mail = :mail, age = :age where id = :id', $param);
+    //
+    //     return redirect('/hello');
+    // }
+    //
+    //
+    // /** 削除ページ */
+    // public function del(Request $request)
+    // {
+    //     $param = ['id' => $request->id];
+    //     $item = DB::select('select * from people where id = :id', $param);
+    //
+    //     return view('hello.del', ['form' => $item[0]]);
+    // }
+    //
+    // /** 削除 */
+    // public function remove(Request $request)
+    // {
+    //     $param = ['id' => $request->id];
+    //     DB::delete('delete from people where id =:id', $param);
+    //     return redirect('/hello');
+    // }
+
+
+    /** クエリビルダの利用 */
+
     public function index(Request $request)
     {
-        if (isset($request->id)) {
-            $param = ['id' => $request->id];
-            $items = DB::select('select * from people where id = :id', $param);
-        } else {
-            $items = DB::select('select * from people');
-        }
+        // DB::tableは指定したテーブルのビルダを取得する。
+        // get()はビルダのメソッド
+        // $items = DB::table('people')->get();
+        // return view('hello.index', ['items' => $items]);
 
+
+        // orderBy
+        $items = DB::table('people')->orderBy('age', 'desc')->get();
         return view('hello.index', ['items' => $items]);
     }
 
-    public function post(Request $request)
+    public function show(Request $request)
     {
-        $items = DB::select('select * from people');
-        return view('hello.index', ['items' => $items]);
+        // パラメータのidを取得
+        // $id = $request->id;
+
+        // whereはSQLのwhereに相当
+
+        // firstは、最初のレコード
+        // $item = DB::table('people')->where('id', $id)->first();
+        // return view('hello.show', ['item' => $item]);
+
+
+        // IDが５以上を全部
+        // $items = DB::table('people')->where('id', '<=', $id)->get();
+        // return view('hello.show', ['items' => $items]);
+
+
+        // orWhere nameとmailから検索する
+        // $name = $request->name;
+        // $items = DB::table('people')
+        //     ->where('name', 'like', '%' . $name . '%')
+        //     ->orWhere('mail', 'like', '%' . $name . '%')
+        //     ->get();
+        //
+        // return view('hello.show', ['items' => $items]);
+
+
+        // whereRaw
+        // $min = $request->min;
+        // $max = $request->max;
+        // $items = DB::table('people')
+        //     ->whereRaw('age >= ? and age <= ?', [$min, $max])
+        //     ->get();
+        // return view('hello.show', ['items' => $items]);
+
+
+        // offsetとlimit
+        $page = $request->page;
+        $items = DB::table('people')
+            ->offset($page * 3)
+            ->limit(3)
+            ->get();
+        return view('hello.show', ['items' => $items]);
+
     }
 
 
-    /** 新規作成ページ */
+    /** 新規追加 クエリビルダ */
     public function add(Request $request)
     {
         return view('hello.add');
     }
 
-    /** 登録 */
     public function create(Request $request)
     {
-        // $paramに、送信フォームの値を保管。
         $param = [
             'name' => $request->name,
             'mail' => $request->mail,
             'age' => $request->age,
         ];
 
-        // 配列をパラメータ引数にして、DB::insertを呼び出し実行
-        // :nameとかはプレースホルダ
-        // 第２引数の$paramではめ込む
-        DB::insert('insert into people (name, mail, age) values (:name, :mail, :age)', $param);
+        DB::table('people')->insert($param);
 
-        // /helloにリダイレクト
         return redirect('/hello');
     }
 
-    /** 更新ページ
-     * /hello/edit?id=6
-     */
+
+    /** 更新 クエリビルダ */
     public function edit(Request $request)
     {
-        $param = ['id' => $request->id];
-        $item = DB::select('select * from people where id = :id', $param);
-
-        return view('hello.edit', ['form' => $item[0]]);
+        $item = DB::table('people')
+            ->where('id', $request->id)->first();
+        return view('hello.edit', ['item' => $item]);
     }
 
-    /** 更新 */
     public function update(Request $request)
     {
         $param = [
-            'id' => $request->id,
             'name' => $request->name,
             'mail' => $request->mail,
             'age' => $request->age,
         ];
-
-        DB::update('update people set name = :name, mail = :mail, age = :age where id = :id', $param);
+        DB::table('people')
+            ->where('id', $request->id)// 絞り込み
+            ->update($param); // 更新
 
         return redirect('/hello');
     }
 
 
-    /** 削除ページ */
+    /** 削除 クエリビルダ */
     public function del(Request $request)
     {
-        $param = ['id' => $request->id];
-        $item = DB::select('select * from people where id = :id', $param);
-
-        return view('hello.del', ['form' => $item[0]]);
+        $item = DB::table('people')
+            ->where('id', $request->id)->first();
+        return view('hello.del', ['form' => $item]);
     }
 
-    /** 削除 */
     public function remove(Request $request)
     {
-        $param = ['id' => $request->id];
-        DB::delete('delete from people where id =:id', $param);
+        DB::table('people')
+            ->where('id', $request->id)->delete(); // 絞り込み 削除
         return redirect('/hello');
     }
 

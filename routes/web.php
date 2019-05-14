@@ -167,3 +167,6 @@ Route::post('hello/edit', 'HelloController@update');
 //削除
 Route::get('hello/del', 'HelloController@del');
 Route::post('hello/del', 'HelloController@remove');
+
+// 詳細ページ
+Route::get('hello/show', 'HelloController@show');
