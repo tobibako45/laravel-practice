@@ -170,3 +170,12 @@ Route::post('hello/del', 'HelloController@remove');
 
 // 詳細ページ
 Route::get('hello/show', 'HelloController@show');
+
+// person index
+Route::get('person', 'PersonController@index');
+
+// person find
+Route::get('person/find', 'PersonController@find');
+
+// person search
+Route::post('person/find', 'PersonController@search');
