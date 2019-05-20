@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class PersonController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         // peopleテーブルの全レコードを取得してる
@@ -15,11 +19,19 @@ class PersonController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function find(Request $request)
     {
         return view('person.find', ['input' => '']);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function search(Request $request)
     {
         // find
@@ -40,5 +52,33 @@ class PersonController extends Controller
         $param = ['input' => $request->input, 'item' => $item];
         return view('person.find', $param);
     }
+
+
+    /**
+     * @param Request $request
+     */
+    public function add(Request $request)
+    {
+        return view('person.add');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function create(Request $request)
+    {
+        $this->validate($request, Person::$rules);
+        $person = new Person;
+
+        $form = $request->all();
+
+        unset($form['_token']);
+
+        $person > fill($form)->save();
+
+        return redirect('/person');
+    }
+
 
 }
