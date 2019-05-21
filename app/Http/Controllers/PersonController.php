@@ -68,13 +68,18 @@ class PersonController extends Controller
      */
     public function create(Request $request)
     {
+        // バリデーションの実行
         $this->validate($request, Person::$rules);
+        // Personインスタンスの作成
         $person = new Person;
 
+        // 値を用意
         $form = $request->all();
-
+        // 「_token」フィールドだけunsetで削除
+        // CSRF用非表示フィールドの項目は、テーブルにないので、予め削除。
         unset($form['_token']);
 
+        // インスタンスに値を設定して保存
         $person > fill($form)->save();
 
         return redirect('/person');
