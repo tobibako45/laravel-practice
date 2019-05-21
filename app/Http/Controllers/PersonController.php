@@ -80,8 +80,41 @@ class PersonController extends Controller
         unset($form['_token']);
 
         // インスタンスに値を設定して保存
-        $person > fill($form)->save();
+        $person->fill($form)->save();
 
+        return redirect('/person');
+    }
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit(Request $request)
+    {
+        // getパラメータ（id=番号）で、検索
+        $person = Person::find($request->id);
+        // viewに、取得したたインスタンスを渡す
+        return view('person.edit', ['form' => $person]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function update(Request $request)
+    {
+        // バリデーション
+        $this->validate($request, Person::$rules);
+        // 検索 $request->idでhiddenのidフォームの値を取得
+        $person = Person::find($request->id);
+        // $formに、フォームからの値を全部格納
+        $form = $request->all();
+        // 「_token」フィールドの値は削除
+        unset($form['_token']);
+        // fillで配列の値をモデルのプロパティに代入して、saveで保存
+        $person->fill($form)->save();
+        // /personにリダイレクト
         return redirect('/person');
     }
 

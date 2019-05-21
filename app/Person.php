@@ -17,7 +17,7 @@ class Person extends Model
     public static $rules = array(
         'name' => 'required',
         'email' => 'email',
-        'age' => 'integer|min:0|max:10',
+        'age' => 'integer|min:0|max:100',
     );
 
 
