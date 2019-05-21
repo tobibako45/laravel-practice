@@ -94,7 +94,7 @@ class PersonController extends Controller
     {
         // getパラメータ（id=番号）で、検索
         $person = Person::find($request->id);
-        // viewに、取得したたインスタンスを渡す
+        // viewに、取得したインスタンスを渡す
         return view('person.edit', ['form' => $person]);
     }
 
@@ -118,5 +118,29 @@ class PersonController extends Controller
         return redirect('/person');
     }
 
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function delete(Request $request)
+    {
+        // フォームからのidで検索
+        $person = Person::find($request->id);
+        // 検索したのをviewに渡す
+        return view('person.del', ['form' => $person]);
+    }
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function remove(Request $request)
+    {
+        // フォームからのidで検索して、deleteで削除
+        Person::find($request->id)->delete();
+        return redirect('/person');
+    }
 
 }

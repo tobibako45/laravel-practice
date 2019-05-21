@@ -184,3 +184,6 @@ Route::post('person/add', 'PersonController@create');
 
 Route::get('person/edit', 'PersonController@edit');
 Route::post('person/edit', 'PersonController@update');
+
+Route::get('person/del', 'PersonCOntroller@delete');
+Route::post('person/del', 'PersonCOntroller@remove');
