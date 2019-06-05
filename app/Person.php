@@ -2,13 +2,16 @@
 
 namespace App;
 
+// 20歳以上しか表示しないバリデーションを書いてる
 use App\Scopes\ScopePerson;
+
 use Illuminate\Database\Eloquent\Model;
 // グローバルスコープを使うため
 use Illuminate\Database\Eloquent\Builder;
 
 class Person extends Model
 {
+
 
     // 入力ガード 用意しておかない項目
     protected $guarded = array('id');
@@ -63,7 +66,6 @@ class Person extends Model
 
 
 
-
     /**
      * ageが〜以上
      * @param $query
@@ -85,6 +87,32 @@ class Person extends Model
     public function scopeAgeLessThan($query, $n)
     {
         return $query->where('age', '<=', $n);
+    }
+
+
+
+    /**
+     * hasOneは、モデルから引数に指定したモデルへの関連付けを設定します。
+     * これにより、このpeopleテーブルのレコードに関連付けを行ったboardsテーブルのレコードが取り出されるようになる。
+     */
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function board()
+    {
+        return $this->hasOne('App\Board');
+    }
+
+
+    /**
+     * これで、Person内のboardsプロパティ($this->boards)で、関連する複数のBoardインスタンスが取り出せるようになる。
+     */
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function boards()
+    {
+        return $this->hasMany('App\Board');
     }
 
 

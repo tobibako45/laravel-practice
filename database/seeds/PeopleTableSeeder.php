@@ -12,9 +12,9 @@ class PeopleTableSeeder extends Seeder
     public function run()
     {
         $param = [
-          'name' => 'taro',
+          'name' => 'shogo',
           'mail' => 'taro@yamada.jp',
-          'age' => 12,
+          'age' => 37,
         ];
         DB::table('people')->insert($param);
 
@@ -29,6 +29,13 @@ class PeopleTableSeeder extends Seeder
             'name' => 'sachiko',
             'mail' => 'sachiko@happy.jp',
             'age' => 56,
+        ];
+        DB::table('people')->insert($param);
+
+        $param = [
+            'name' => 'momomo',
+            'mail' => 'momom@happy.jp',
+            'age' => 18,
         ];
         DB::table('people')->insert($param);
 
