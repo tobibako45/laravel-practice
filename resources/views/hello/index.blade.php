@@ -3,6 +3,34 @@
 {{--helloapp.blade.phpを継承しますよ--}}
 @extends('layouts.helloapp')
 
+<style>
+    .pagination {
+        font-size: 10pt;
+    }
+
+    .pagination li {
+        display: inline-block;
+    }
+
+    tr th a:link {
+        color: white;
+    }
+
+    tr th a:visited {
+        color: white;
+    }
+
+    tr th a:hover {
+        color: white;
+    }
+
+    tr th a:active {
+        color: white;
+    }
+
+</style>
+
+
 {{--@yield('title')に出るよ--}}
 @section('title', 'Indexだよ')
 
@@ -14,14 +42,17 @@
 @section('content')
     {{--    <p>ここが本文コンテンツ</p>--}}
 
-{{--    <p>{{$msg}}</p>--}}
+    {{--    <p>{{$msg}}</p>--}}
 
     {{--DBクラスの使用--}}
     <table>
         <tr>
-            <th>Name</th>
-            <th>Mail</th>
-            <th>Age</th>
+{{--            <th>Name</th>--}}
+{{--            <th>Mail</th>--}}
+{{--            <th>Age</th>            --}}
+            <th><a href="/hello?sort=name">Name</a></th>
+            <th><a href="/hello?sort=mail">Mail</a></th>
+            <th><a href="/hello?sort=age">Age</a></th>
         </tr>
         @foreach($items as $item)
             <tr>
@@ -32,6 +63,12 @@
         @endforeach
     </table>
 
+
+    {{--ページネーション--}}
+{{--    {{$items->links()}}--}}
+
+    {{--ソート版--}}
+    {{$items->appends(['sort' => $sort])->links()}}
 
 
 

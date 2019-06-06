@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Person;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -612,14 +613,52 @@ class HelloController extends Controller
     {
         // DB::tableは指定したテーブルのビルダを取得する。
         // get()はビルダのメソッド
-        // $items = DB::table('people')->get();
+        // $items = DB::table('people'    public function index(Request $request)
+        //     {
+        //         // DB::tableは指定したテーブルのビルダを取得する。
+        //         // get()はビルダのメソッド
+        //         // $items = DB::table('people')->get();
+        //         // return view('hello.index', ['items' => $items]);
+        //
+        //
+        //         // orderBy
+        //         // $items = DB::table('people')->orderBy('age', 'desc')->get();
+        //         // return view('hello.index', ['items' => $items]);
+        //
+        //         // simplePaginate
+        //         $items = DB::table('people')->simplePaginate(5);
+        //         return view('hello.index', ['items' => $items]);
+        //     })->get();
         // return view('hello.index', ['items' => $items]);
 
 
         // orderBy
-        $items = DB::table('people')->orderBy('age', 'desc')->get();
-        return view('hello.index', ['items' => $items]);
+        // $items = DB::table('people')->orderBy('age', 'desc')->get();
+        // return view('hello.index', ['items' => $items]);
+
+
+        // simplePaginate DBクラス版
+        // $items = DB::table('people')->simplePaginate(5);
+        // return view('hello.index', ['items' => $items]);
+
+        // simplePaginate モデルクラス版
+        // $items = Person::simplePaginate(2);
+        // return view('hello.index', ['items' => $items]);
+
+
+        // simplePaginate sort版
+        $sort = $request->sort;
+        // $items = Person::orderBy($sort, 'asc')->simplepaginate(5);
+
+        // paginateに変更
+        $items = Person::orderBy($sort, 'asc')->paginate(5);
+
+        $param = ['items' => $items, 'sort' => $sort];
+        return view('hello.index', $param);
+
+
     }
+
 
     public function show(Request $request)
     {
