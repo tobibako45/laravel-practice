@@ -192,3 +192,9 @@ Route::post('person/del', 'PersonCOntroller@remove');
 Route::get('board', 'BoardController@index');
 Route::get('board/add', 'BoardController@add');
 Route::post('board/add', 'BoardController@create');
+
+// rest
+Route::resource('rest', 'RestappController');
+
+// hello/rest
+Route::get('hello/rest', 'HelloController@rest');

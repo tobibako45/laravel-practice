@@ -726,4 +726,12 @@ class HelloController extends Controller
         return redirect('/hello');
     }
 
+
+
+
+    /** Rest */
+    public function rest(Request $request)
+    {
+        return view('hello.rest');
+    }
 }

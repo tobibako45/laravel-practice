@@ -12,9 +12,8 @@ use Illuminate\Database\Eloquent\Builder;
 class Person extends Model
 {
 
-
     // 入力ガード 用意しておかない項目
-    protected $guarded = array('id');
+    protected $guarded = ['id'];
 
     // バリデーションルール
     public static $rules = array(
