@@ -727,11 +727,33 @@ class HelloController extends Controller
     }
 
 
-
-
     /** Rest */
     public function rest(Request $request)
     {
         return view('hello.rest');
     }
+
+
+    /** セッション
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function session_get(Request $request)
+    {
+        $session_data = $request->session()->get('msg');
+        return view('hello.session', ['session_data' => $session_data]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function session_put(Request $request)
+    {
+        $msg = $request->input;
+        $request->session()->put('msg', $msg);
+        return redirect('hello/session');
+    }
+
+
 }
