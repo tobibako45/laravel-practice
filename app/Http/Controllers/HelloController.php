@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Person;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+// Auth認証のため追記
+use Illuminate\Support\Facades\Auth;
 
 // フォームリクエストの追加
 use App\Http\Requests\HelloRequest;
@@ -647,13 +649,21 @@ class HelloController extends Controller
 
 
         // simplePaginate sort版
-        $sort = $request->sort;
+        // $sort = $request->sort;
         // $items = Person::orderBy($sort, 'asc')->simplepaginate(5);
 
         // paginateに変更
-        $items = Person::orderBy($sort, 'asc')->paginate(5);
+        // $items = Person::orderBy($sort, 'asc')->paginate(5);
+        // $param = ['items' => $items, 'sort' => $sort];
+        // return view('hello.index', $param);
 
-        $param = ['items' => $items, 'sort' => $sort];
+
+        // Auth認証
+        // ユーザーのモデルインスタンス ログインしてなければnull
+        $user = Auth::user();
+        $sort = $request->sort;
+        $items = Person::orderBy($sort, 'asc')->paginate(5);
+        $param = ['items' => $items, 'sort' => $sort, 'user' => $user];
         return view('hello.index', $param);
 
 
@@ -794,5 +804,26 @@ class HelloController extends Controller
         return redirect('hello/session');
     }
 
+
+    /** Auth認証（自作） */
+    public function getAuth(Request $request)
+    {
+        $param = ['message' => 'ログインしてください！！'];
+        return view('hello.auth', $param);
+    }
+
+    public function postAuth(Request $request)
+    {
+        $email = $request->email;
+        $password = $request->password;
+
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+            $msg = 'ログインしました！！' . Auth::user()->name;
+        } else {
+            $msg = 'ログインに失敗しました！！！';
+        }
+
+        return view('hello.auth', ['message' => $msg]);
+    }
 
 }

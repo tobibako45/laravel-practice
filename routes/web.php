@@ -153,7 +153,12 @@ Route::get('/', function () {
 
 
 // バリデーションの利用
-Route::get('hello', 'HelloController@index');
+
+// Route::get('hello', 'HelloController@index');
+// Authミドルウェアでログイン必須にしてる
+Route::get('hello', 'HelloController@index')->middleware('auth');
+
+
 Route::post('hello', 'HelloController@post');
 
 // 新規作成を追加
@@ -170,6 +175,22 @@ Route::post('hello/del', 'HelloController@remove');
 
 // 詳細ページ
 Route::get('hello/show', 'HelloController@show');
+
+
+// hello/rest
+Route::get('hello/rest', 'HelloController@rest');
+
+// hello/session
+Route::get('hello/session', 'HelloController@session_get');
+Route::post('hello/session', 'HelloController@session_put');
+
+// 自作Auth認証
+Route::get('hello/auth', 'HelloController@getAuth');
+Route::post('hello/auth', 'HelloController@postAuth');
+
+
+
+
 
 // person index
 Route::get('person', 'PersonController@index');
@@ -196,13 +217,10 @@ Route::post('board/add', 'BoardController@create');
 // rest
 Route::resource('rest', 'RestappController');
 
-// hello/rest
-Route::get('hello/rest', 'HelloController@rest');
 
-// hello/session
-Route::get('hello/session', 'HelloController@session_get');
-Route::post('hello/session', 'HelloController@session_put');
 
+// 勝手に作られる
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+

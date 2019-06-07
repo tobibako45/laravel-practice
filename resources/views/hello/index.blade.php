@@ -40,6 +40,14 @@
 @endsection
 
 @section('content')
+
+    {{--Auth認証--}}
+    @if(Auth::check())
+        <p>USER:: {{$user->name . '(' . $user->name . ')'}}</p>
+    @else
+        <p>ログインしていません。（<a href="/login">ログイン</a>｜<a href="/regster">新規登録</a>）</p>
+    @endif
+
     {{--    <p>ここが本文コンテンツ</p>--}}
 
     {{--    <p>{{$msg}}</p>--}}
@@ -47,9 +55,9 @@
     {{--DBクラスの使用--}}
     <table>
         <tr>
-{{--            <th>Name</th>--}}
-{{--            <th>Mail</th>--}}
-{{--            <th>Age</th>            --}}
+            {{--            <th>Name</th>--}}
+            {{--            <th>Mail</th>--}}
+            {{--            <th>Age</th>            --}}
             <th><a href="/hello?sort=name">Name</a></th>
             <th><a href="/hello?sort=mail">Mail</a></th>
             <th><a href="/hello?sort=age">Age</a></th>
@@ -65,7 +73,7 @@
 
 
     {{--ページネーション--}}
-{{--    {{$items->links()}}--}}
+    {{--    {{$items->links()}}--}}
 
     {{--ソート版--}}
     {{$items->appends(['sort' => $sort])->links()}}
