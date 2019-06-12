@@ -200,6 +200,8 @@ Route::get('person/find', 'PersonController@find');
 // person search
 Route::post('person/find', 'PersonController@search');
 
+Route::get('person/{id}', 'PersonController@show');
+
 Route::get('person/add', 'PersonController@add');
 Route::post('person/add', 'PersonController@create');
 

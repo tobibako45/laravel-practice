@@ -17,6 +17,7 @@
         @foreach($hasItems as $item)
             <tr>
                 <td>{{$item->getData()}}</td>
+
                 {{--                <td>--}}
                 {{--                    @if($item->board !== null)--}}
                 {{--                        {{$item->board->getData()}}--}}
@@ -33,7 +34,6 @@
                 {{--                        </table>--}}
                 {{--                    @endif--}}
                 {{--                </td>--}}
-
 
                 <td>
                     <table width="100%">
@@ -75,6 +75,10 @@
             </tr>
         @endforeach
     </table>
+
+
+
+    <?php dd($person); ?>
 
 @endsection
 

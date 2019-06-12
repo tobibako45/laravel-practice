@@ -96,6 +96,17 @@ class PersonController extends Controller
     }
 
 
+    public function show(Person $id)
+    {
+
+        // dd($person);
+        // $pperson = $person->find($person);
+        // dd($person);
+
+        return view('person.show', ['person' => $id]);
+    }
+
+
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
