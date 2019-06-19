@@ -19,6 +19,8 @@
                 <td>{{$item->getData()}}</td>
 
                 {{--                <td>--}}
+                {{--                <td>--}}
+                {{--                <td>--}}
                 {{--                    @if($item->board !== null)--}}
                 {{--                        {{$item->board->getData()}}--}}
                 {{--                    @endif--}}
